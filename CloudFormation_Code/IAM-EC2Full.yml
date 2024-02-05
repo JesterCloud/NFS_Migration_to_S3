@@ -31,5 +31,5 @@ Resources:
 
 Outputs:
   RoleARN:
-    Description: "ARN del Rol de IAM"
+    Description: " ARN del Rol de IAM "
     Value: !GetAtt EC2FullRole.Arn

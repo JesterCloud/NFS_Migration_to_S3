@@ -11,7 +11,7 @@ Resources:
       GatewayTimezone: "GMT-5:00"
       GatewayType: "FILE_S3"
 
-Parameters:
+Parameters: 
   ActivationKey:
     Type: String
     Description: Activation key for the gateway.

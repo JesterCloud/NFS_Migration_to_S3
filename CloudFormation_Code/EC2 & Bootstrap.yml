@@ -5,7 +5,7 @@ Resources:
   MyEC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      ImageId: 'ami-046eeba8a7f7bbefd' # AMI
+      ImageId: 'ami-046eeba8a7f7bbefd' # AMI Real IAM
       InstanceType: 't3.micro'
       SecurityGroupIds: 
         - 'sg-XXXX' # Security Group

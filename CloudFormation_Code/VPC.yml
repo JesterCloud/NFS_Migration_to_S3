@@ -15,7 +15,7 @@ Resources:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId: !Ref MiVPC
-      CidrBlock: '172.31.96.0/24' 
+      CidrBlock: '172.31.96.0/24'  # CIDR
       MapPublicIpOnLaunch: true # Public IPs
       AvailabilityZone: 'us-east-1a'
       Tags:

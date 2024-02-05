@@ -5,13 +5,13 @@ Resources:
   CCRS3Role:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: CCRS3
+      RoleName: CRRS3
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
           - Effect: Allow
             Principal:
-              Service: 's3.amazonaws.com'  # Permitir que el servicio SOLO S3 asuma este rol
+              Service: 's3.amazonaws.com'  # Only S3
             Action: 'sts:AssumeRole'
       Path: "/"
       Policies:
@@ -32,4 +32,4 @@ Resources:
 Outputs:
   RoleARN:
     Description: "ARN del Rol de IAM para S3"
-    Value: !GetAtt CCRS3Role.Arn
+    Value: !GetAtt CRRS3Role.Arn
