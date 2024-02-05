@@ -1,4 +1,4 @@
-# NFS File shares migration On-Prem to  AWS S3 utilizing Storage Gateway
+# NFS File shares migration On-Prem to  AWS S3 using Storage Gateway
 
 ## Introduction
 Migration of file shares from an on-premises Linux instance to AWS, utilizing Storage Gateway for S3 in the Ohio region (us-east-2), with cross-region replication to Oregon (us-west-2).
