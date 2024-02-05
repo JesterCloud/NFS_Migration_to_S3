@@ -1,0 +1,8 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  SourceBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'my-source-bucket-us-east-2'
+      VersioningConfiguration:
+        Status: 'Enabled'

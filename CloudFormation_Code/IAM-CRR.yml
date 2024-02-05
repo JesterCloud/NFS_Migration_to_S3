@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM policy role to S3 for the replication rule
+
+Resources:
+  CCRS3Role:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: CCRS3
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: 's3.amazonaws.com'  # Permitir que el servicio SOLO S3 asuma este rol
+            Action: 'sts:AssumeRole'
+      Path: "/"
+      Policies:
+        - PolicyName: CRPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:Get*'
+                  - 's3:ListBucket'
+                  - 's3:ReplicateObject'
+                  - 's3:ReplicateDelete'
+                  - 's3:ReplicateTags'
+                  - 's3:GetObjectVersionTagging'
+                Resource: '*'
+
+Outputs:
+  RoleARN:
+    Description: "ARN del Rol de IAM para S3"
+    Value: !GetAtt CCRS3Role.Arn

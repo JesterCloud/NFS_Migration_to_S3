@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation para S3 File Gateway/ manually manage and configure.
+
+Resources:
+  S3FileGateway:
+    Type: AWS::StorageGateway::Gateway
+    Properties: 
+      ActivationKey: !Ref ActivationKey
+      GatewayName: "S3FileGateway"
+      GatewayRegion: !Ref AWS::Region
+      GatewayTimezone: "GMT-5:00"
+      GatewayType: "FILE_S3"
+
+Parameters:
+  ActivationKey:
+    Type: String
+    Description: Activation key for the gateway.

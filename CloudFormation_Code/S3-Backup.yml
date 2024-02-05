@@ -1,0 +1,8 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  DestinationBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'destination-backup-bucket-us-west-2'
+      VersioningConfiguration:
+        Status: 'Enabled'

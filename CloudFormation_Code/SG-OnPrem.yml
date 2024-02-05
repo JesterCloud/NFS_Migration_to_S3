@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Crear un Security Group con reglas de entrada y salida específicas
+
+Parameters:
+  VPCId:
+    Description: ID de tu VPC
+    Type: AWS::EC2::VPC::Id
+    # Default: vpc-06a4ba7268d41e823 # Optional
+
+Resources:
+  MiSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Descripcion del Security Group
+      VpcId: !Ref 'VPCId' 
+      Tags:
+        - Key: Name
+          Value: On-PremSG
+          
+      # Inbound Rules
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 # Modify as per CIDR
+      
+      # Outbound Rules
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 2049
+          ToPort: 2049
+          CidrIp: 172.31.96.0/24 # In my case, my Subnet CIDR
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0 # Modify as per CIDR
+
+Outputs:
+  SecurityGroupId:
+    Description: ID del Security Group
+    Value: !Ref MiSecurityGroup

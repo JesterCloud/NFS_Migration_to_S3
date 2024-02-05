@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Crear un Security Group llamado FileGatewaySG con reglas de entrada y salida específicas
+
+Parameters:
+  VPCId:
+    Description: ID de tu VPC
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+  FileGatewaySG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security Group para File Gateway
+      VpcId: !Ref 'VPCId' 
+      GroupName: FileGatewaySG
+
+     # Inbound
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 2049 # NFS
+          ToPort: 2049
+          CidrIp: 10.10.1.0/24  # --- CIDR Block of subnet
+        - IpProtocol: tcp
+          FromPort: 443 # HTTPS
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80 # HTTP
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+      # Outbound
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 443 # HTTPS
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+
+Outputs:
+  SecurityGroupId:
+    Description: ID del Security Group
+    Value: !Ref FileGatewaySG

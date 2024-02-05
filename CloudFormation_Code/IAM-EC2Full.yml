@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM Role with permissions for EC2
+
+Resources:
+  EC2FullRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: EC2Full
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [ec2.amazonaws.com]
+            Action: ['sts:AssumeRole']
+      Path: '/'
+      Policies:
+        - PolicyName: MyS3AccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action: ['s3:ListBucket']
+                Resource: ['arn:aws:s3:::us-west-2-aws-training']
+                Effect: 'Allow'
+              - Action: ['s3:GetObject']
+                Resource: ['arn:aws:s3:::us-west-2-aws-training/courses/spl-223/v1.0.24.prod-0b94975e/data/*']
+                Effect: 'Allow'
+              - Action: ['s3:HeadBucket']
+                Resource: ['*']
+                Effect: 'Allow'
+
+Outputs:
+  RoleARN:
+    Description: "ARN del Rol de IAM"
+    Value: !GetAtt EC2FullRole.Arn

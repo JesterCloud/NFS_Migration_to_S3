@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Crear una VPC con una subred y un Internet Gateway
+
+Resources:
+  MiVPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: '172.31.0.0/16' # CIDR
+      Tags:
+        - Key: Name
+          Value: On-Prem-VPC
+
+# Subnet  --------------------------
+  MiSubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref MiVPC
+      CidrBlock: '172.31.96.0/24' 
+      MapPublicIpOnLaunch: true # Public IPs
+      AvailabilityZone: 'us-east-1a'
+      Tags:
+        - Key: Name
+          Value: On-Prem-Subnet
+
+# IGW  --------------------------
+  MiInternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Name
+          Value: On-Prem-IGW
+
+  VPCGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref MiVPC
+      InternetGatewayId: !Ref MiInternetGateway
+
+# RT  --------------------------
+  MiRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref MiVPC
+      Tags:
+        - Key: Name
+          Value: On-Prem-RT
+
+  MiRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref MiRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref MiInternetGateway
+
+  SubnetRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref MiSubnet
+      RouteTableId: !Ref MiRouteTable

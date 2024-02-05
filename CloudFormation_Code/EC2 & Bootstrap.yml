@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Lanzamiento de una instancia EC2 con un script de usuario para el bootstrap y un rol IAM existente.
+
+Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: 'ami-046eeba8a7f7bbefd' # AMI
+      InstanceType: 't3.micro'
+      SecurityGroupIds: 
+        - 'sg-XXXX' # Security Group
+      SubnetId: 'subnet-XXXXXX' # SubnetID creado en el previous VPC File
+      IamInstanceProfile: !Ref EC2FullInstanceProfile
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          mkdir /media/data
+          aws s3 cp s3://us-west-2-aws-training/awsu-ilt/AWS-100-ESS/v2.3/student/spl/spl-223/v1.0.24.prod-0b94975e/data/ /media/data/ --recursive
+      Tags:  
+        - Key: Name
+          Value: On-PremLinux # Name
+      # KeyName: 'my-key-pair' # Reemplaza con tu par de claves SSH
+      # Tags:
+        # - Key: Name
+         #  Value: 'key-on-prem'
+
+  EC2FullInstanceProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Roles:
+        - 'EC2Full' # Make sure it exist with the previous template Role
