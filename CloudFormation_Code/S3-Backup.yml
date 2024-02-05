@@ -5,4 +5,4 @@ Resources:
     Properties:
       BucketName: 'destination-backup-bucket-us-west-2'
       VersioningConfiguration:
-        Status: 'Enabled'
+        Status: 'Enabled' 
