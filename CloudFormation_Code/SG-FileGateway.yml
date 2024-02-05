@@ -6,7 +6,7 @@ Parameters:
     Description: ID de tu VPC
     Type: AWS::EC2::VPC::Id
 
-Resources:
+Resources: 
   FileGatewaySG:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
