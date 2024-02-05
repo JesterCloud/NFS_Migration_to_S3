@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS CloudFormation Template: IAM Policy forFile Gateway S3 Access'
+Description: 'IAM Policy forFile Gateway S3 Accesson'
 
 Resources:
   S3AccessPolicy:
