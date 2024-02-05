@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Resources:
+Resources: 
   SourceBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
