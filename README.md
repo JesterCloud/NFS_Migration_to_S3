@@ -1,31 +1,29 @@
 # NFS File shares migration On-Prem to  AWS S3 utilizing Storage Gateway
 
 ## Introduction
-AWS-powered web application directory, designed for high availability and resilience.
+Migration of file shares from an on-premises Linux instance to AWS, utilizing Storage Gateway for S3 in the Ohio region (us-east-2), with cross-region replication to Oregon (us-west-2).
 
 ## Architecture
-The application is architected for high availability across multiple Availability Zones (AZs) in the US East (N. Virginia `us-east-1`) and US East (Ohio `us-east-2`) regions, secure using SecurityGroups, NAT Gateway, Firewall ensuring reliable and consistent access.
+The migration is executed as a one-time operation using NFS on a Storage/File Gateway. Originating from on-premises Linux instances hosting various directories, images, and files, the migration targets an S3 bucket in the AWS Ohio region, with automatic cross-region replication to Oregon for redundancy and disaster recovery purposes.
 
 ### AWS Services
 - **Virtual Private Cloud (VPC)**: Configured with 6 subnets spanning 2 different AZs for redundancy and fault tolerance.
 - **Subnets**:
-  - Public Subnet: Provides access to the Internet for the EC2 instances.
-  - Private Subnet (EC2): Hosts the web application instances, isolated for security.
-  - Private Subnet (Database): Reserved for future database implementations, currently not in use due to DynamoDB's managed service.
-- **DynamoDB**: Serves as the scalable and managed NoSQL database solution.
-- **Amazon S3**: Utilized for storing and retrieving application images, integrated with DynamoDB.
-- **Security Groups**: Configures firewall rules to control traffic to EC2 instances.
-- **Target Groups**: Directs traffic to appropriate EC2 instances via the Application Load Balancer.
-- **Application Load Balancer (ALB)**: Distributes incoming application traffic across multiple targets, such as EC2 instances, in multiple Availability Zones.
-- **Auto Scaling Groups**: Automatically adjusts the number of EC2 instances in response to traffic demands.
+  - Public Subnet: Hosts the on-premises instance and appliance instances with the File Gateway mounted.
+- **S3**: Serves as the primary storage for migrated files using File Gateway.
+- **S3 Cross Region Replication**: Replicate the files on S3 to another region for backup.
+- **Security Groups**: Secure acces for the EC2 instances to HTTP, HTTPS, NFS and SSH.
+- **AIM Roles**: Define the access policies to the services.
+- **Policies**: Policies design spesifically for File Gateway to access S3.
 
 ## Additional AWS Components
-The project incorporates other AWS services to enhance functionality, including IAM Roles for security best practices,  launch templates, NAT Gateway and more.
+Using AWS services to complete a one time migration from On-Prem to AWS.
 
 ## Repository Contents
 Within this repository, you will find:
 - **CloudFormation Templates**: The `CloudFormation` directory contains all the YAML templates used to define the AWS resources.
-- **AWS Console & Website Screenshots**: The `AWS Console and Website running-Images` directory provides a visual insight into the AWS Console's behavior and the web application's responses.
+- **Images**: The SSH conection to the On-Prem instance to configure and perform the migration.
+- **Script.sh**: The Script used to autogenerate Images and files (2.6GB) to migrate.
 
 [![LinkedIn](https://www.linkedin.com/in/giogalindo470/)](Tu-URL-de-LinkedIn)
 https://www.linkedin.com/in/giogalindo470/
