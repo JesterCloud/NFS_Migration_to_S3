@@ -4,7 +4,7 @@ SIZE_LIMIT=2560 # 2.5 GB expresados en MB/ Límite de tamaño total en MB
 FILE_SIZE=10 # Tamaño inicial de cada archivo en MB
 total_size=0
 last_file_size=0
-
+ 
 mkdir -p "$TARGET_DIR"
 while [ $total_size -lt $SIZE_LIMIT ]; do # limite
   filename=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
