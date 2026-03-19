@@ -1,6 +1,6 @@
 # NFS File shares migration On-Prem to  AWS S3 using Storage Gateway
 <p align="center">
-  <img src="Images Results/On-Prem_to_AWS.png" width="400"/>
+  <img src="Images Results/On-Prem_to_AWS.png" width="650"/>
 </p>
 
 ## Introduction
